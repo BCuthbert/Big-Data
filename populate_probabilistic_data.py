@@ -17,6 +17,7 @@ def run_simulation(policy, bandwidth, arrival_rate, trial):
     """Run one SimPy trial and return a list of metric dicts."""
     env = simpy.Environment()
     # Initialize uncertainties and last_update arrays...
+    # This is shown in the '03 paper using baseline values.
     uncertainties = [(0.0, 0.0)] * NUM_SENSORS
     last_update  = [0.0] * NUM_SENSORS
     metrics = []
@@ -80,7 +81,7 @@ def main():
         for trial in range(NUM_TRIALS)
     ]
 
-    # Use all CPU cores by default
+    # runs very slow without using CPU pool => separates program into processes to run quicker. 
     with Pool() as pool:
         all_results = pool.map(simulate_setting, params)
 
